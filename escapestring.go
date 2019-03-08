@@ -19,7 +19,6 @@ func (s StringWithEscape) Len() int {
 }
 
 func (s StringWithEscape) Width() int {
-	//return len([]byte(string(s.oriStr)))
 	return runewidth.StringWidth(string(s.oriStr))
 }
 
@@ -124,13 +123,25 @@ func (e EscapeString) SubstringByWidth(start, reqWidth int) string {
 		reqstr += e[es].escStart + string(e[es].oriStr[esoff:eeoff]) + e[es].escEnd
 	} else {
 		for i := es; i <= ee; i++ {
+			var str string
 			if i == es {
-				reqstr += e[i].escStart + string(e[i].oriStr[esoff:]) + e[i].escEnd
+				str = string(e[i].oriStr[esoff:])
 			} else if i == ee {
-				reqstr += e[i].escStart + string(e[i].oriStr[:eeoff]) + e[i].escEnd
+				str = string(e[i].oriStr[:eeoff])
 			} else {
-				reqstr += e[i].escStart + string(e[i].oriStr) + e[i].escEnd
+				str = string(e[i].oriStr)
 			}
+
+			if len(str) != 0 {
+				reqstr += e[i].escStart + str + e[i].escEnd
+			}
+			//if i == es {
+			//	reqstr += e[i].escStart + string(e[i].oriStr[esoff:]) + e[i].escEnd
+			//} else if i == ee {
+			//	reqstr += e[i].escStart + string(e[i].oriStr[:eeoff]) + e[i].escEnd
+			//} else {
+			//	reqstr += e[i].escStart + string(e[i].oriStr) + e[i].escEnd
+			//}
 		}
 	}
 
@@ -157,12 +168,17 @@ func (e EscapeString) Substring(start, end int) string {
 		rstr += e[es].escStart + string(e[es].oriStr[esoff:eeoff]) + e[es].escEnd
 	} else {
 		for i := es; i <= ee; i++ {
+			var str string
 			if i == es {
-				rstr += e[i].escStart + string(e[i].oriStr[esoff:]) + e[i].escEnd
+				str = string(e[i].oriStr[esoff:])
 			} else if i == ee {
-				rstr += e[i].escStart + string(e[i].oriStr[:eeoff]) + e[i].escEnd
+				str = string(e[i].oriStr[:eeoff])
 			} else {
-				rstr += e[i].escStart + string(e[i].oriStr) + e[i].escEnd
+				str = string(e[i].oriStr)
+			}
+
+			if len(str) != 0 {
+				rstr += e[i].escStart + str + e[i].escEnd
 			}
 		}
 	}
@@ -234,4 +250,3 @@ func NewEscapeString(str string) EscapeString {
 
 	return cont
 }
-
