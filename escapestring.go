@@ -135,13 +135,6 @@ func (e EscapeString) SubstringByWidth(start, reqWidth int) string {
 			if len(str) != 0 {
 				reqstr += e[i].escStart + str + e[i].escEnd
 			}
-			//if i == es {
-			//	reqstr += e[i].escStart + string(e[i].oriStr[esoff:]) + e[i].escEnd
-			//} else if i == ee {
-			//	reqstr += e[i].escStart + string(e[i].oriStr[:eeoff]) + e[i].escEnd
-			//} else {
-			//	reqstr += e[i].escStart + string(e[i].oriStr) + e[i].escEnd
-			//}
 		}
 	}
 
